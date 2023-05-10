@@ -13,7 +13,6 @@
 		?>
 		
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-		</script>
 		<!----webfonts---->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 		<!----//webfonts---->
@@ -169,7 +168,7 @@
 	        
 	        $.ajax({
 	           type:'POST',
-	           url:"../../Backend/logic/register.php",
+	           url:"../Backend/logic/register.php",
 	           data:{
 	           		type: type, 
 	           		username: username, 
@@ -181,16 +180,6 @@
 	           		email:email, 
 	           		password: password, 
 	           		confirm_password:confirm_password
-	           	},
-	           success:function(response){
-	           	 	var responseObj = JSON.parse(response);
-	                console.log(responseObj.status);
-		            if (responseObj.status == "Yes") {
-		            	$(location).attr('href', 'login.php');
-		            } else {
-		                $("#error").html(responseObj.status);
-		                $("#error").css("display", 'block');
-		            }
 	           }
 	        });
 	    }
