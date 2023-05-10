@@ -66,84 +66,87 @@
 		</header>
 
 
-			<!--- start-content---->
-			<div class="content login-box">
-				<div class="login-main">
-					<div class="wrap">
-						<h1>CREATE AN ACCOUNT</h1>
+        <div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">CREATE AN ACCOUNT</h1>
+        </div>
 
-						<div id="error" style="display:none; background: #c05353;color: #fff;padding: 10px;border-radius: 7px;margin-top: 10px;"></div>
+        <div class="card-body">
+          <div id="error" style="display:none; background: #c05353;color: #fff;padding: 10px;border-radius: 7px;margin-bottom: 10px;"></div>
+          <form onsubmit="return false;">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="type">Title</label>
+                  <select class="form-control" name="type" id="type">
+                    <option value="Mr">Mr</option>
+                    <option value="Ms">Ms</option>
+                  </select>
+                </div>
 
-						<div class="register-grids">
-							<form onsubmit="return false;">
-								<div class="register-top-grid">
-										<h3>PERSONAL INFORMATION</h3>
+                <div class="form-group">
+                  <label for="f_name">First Name*</label>
+                  <input type="text" class="form-control" name="f_name" id="f_name" required>
+                </div>
 
-										<div>
-											<span>Mr/Ms<label>*</label></span>
-											<select name="type" id="type" style="border: 1px solid #EEE;outline-color: #E45D5D;width: 96%;font-size: 0.9em;padding: 0.5em;font-family: 'Open Sans', sans-serif;">
-												<option value="Mr">Mr</option>
-												<option value="Ms">Ms</option>
-											</select> 
-										</div>
+                <div class="form-group">
+                  <label for="l_name">Last Name*</label>
+                  <input type="text" class="form-control" name="l_name" id="l_name" required>
+                </div>
 
-										<div>
-											<span>Username<label>*</label></span>
-											<input type="text" name="username" id="username" required> 
-										</div>
+                <div class="form-group">
+                  <label for="address">Address*</label>
+                  <input type="text" class="form-control" name="address" id="address" required>
+                </div>
 
-										<div>
-											<span>First Name<label>*</label></span>
-											<input type="text" name="f_name" id="f_name" required> 
-										</div>
+                <div class="form-group">
+                  <label for="zip_code">Zip Code*</label>
+                  <input type="text" class="form-control" name="zip_code" id="zip_code" required>
+                </div>
 
-										<div>
-											<span>Last Name<label>*</label></span>
-											<input type="text" name="l_name" id="l_name" required> 
-										</div>
+                <div class="form-group">
+                  <label for="town">Town*</label>
+                  <input type="text" class="form-control" name="town" id="town" required>
+                </div>
 
-										<div>
-											<span>Address<label>*</label></span>
-											<input type="text" name="address" id="address" required> 
-										</div>
+                <div class="form-group">
+                  <label for="email">Email Address*</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+              </div>
 
-										<div>
-											<span>Zip Code<label>*</label></span>
-											<input type="text" name="zip_code" id="zip_code" required> 
-										</div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="username">Username*</label>
+                  <input type="text" class="form-control" name="username" id="username" required>
+                </div>
 
-										<div>
-											<span>Town<label>*</label></span>
-											<input type="text" name="town" id="town" required> 
-										</div>
+                <div class="form-group">
+                  <label for="password">Password*</label>
+                  <input type="password" class="form-control" name="password" id="password" required>
+                </div>
 
-										<div>
-											<span>Email Address<label>*</label></span>
-											<input type="email" name="email" id="email" required> 
-										</div>
-										<div class="clear"> </div>
-								</div>
-								<div class="clear"> </div>
-								<div class="register-bottom-grid">
-										<h3>LOGIN INFORMATION</h3>
-										<div>
-											<span>Password<label>*</label></span>
-											<input type="password" name="password" id="password" required>
-										</div>
-										<div>
-											<span>Confirm Password<label>*</label></span>
-											<input type="password" name="confirm_password" id="confirm_password" required>
-										</div>
-										<div class="clear"> </div>
-								</div>
-								<div class="clear"> </div>
-								<button onclick="register()" class="acount-btn">Register</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		
+                <div class="form-group">
+                  <label for="confirm_password">Confirm Password*</label>
+                  <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary" onclick="register()">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 	<!-- AJAX -->
 	<script type="text/javascript">
 	    function register(e) {
