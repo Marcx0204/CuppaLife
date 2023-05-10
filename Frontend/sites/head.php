@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="../res/CSS/style.css" type="text/css">
 
 
-<script src="https://kit.fontawesome.com/6c2c0b3636.js" crossorigin="anonymous"></script>
-
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
