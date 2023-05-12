@@ -1,8 +1,18 @@
-<div class="container my-5">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php include 'head.php'; ?>
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <?php include 'navbar.php'; ?>
+    </header>
+    <div class="container my-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
+    <div class="col-lg-6">
+      <div class="card border-0">
+        <div class="card-header bg-white">
           <h1 class="text-center">LOGIN OR CREATE AN ACCOUNT</h1>
         </div>
 
@@ -16,7 +26,7 @@
 
                 <div class="card-body text-secondary">
                   <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-                  <a class="btn btn-primary btn-block" href="register.php">Create an Account</a>
+                  <a class="btn btn-primary btn-lg btn-block" href="register.php">Create an Account</a>
                 </div>
               </div>
             </div>
@@ -31,21 +41,21 @@
                   <div id="error" style="display:none; background: #c05353;color: #fff;padding: 10px;border-radius: 7px;text-align: center;margin-bottom: 10px;"></div>
                   <form onsubmit="return false;">
                     <div class="form-group">
-                      <label for="email">Email Address*</label>
-                      <input type="email" class="form-control" id="email" name="email" required>
+                      <label for="email">Username</label>
+                      <input type="email" class="form-control form-control-lg" id="email" name="username" required>
                     </div>
 
                     <div class="form-group">
                       <label for="password">Password*</label>
-                      <input type="password" class="form-control" id="password" name="password" required>
+                      <input type="password" class="form-control form-control-lg" id="password" name="password" required>
                     </div>
 
-                    <div class="form-check">
+                    <div class="form-check mb-3">
                       <input type="checkbox" class="form-check-input" name="remember" id="remember">
                       <label class="form-check-label" for="remember">Remember Me</label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block mt-3" onclick="login()">Login</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="login()">Login</button>
                   </form>
                 </div>
               </div>
@@ -57,7 +67,8 @@
   </div>
 </div>
 
-	<!-- AJAX -->
+
+    <!-- AJAX -->
 	<script type="text/javascript">
 	    function login(e) {
 	        var email 	 = $('#email').val();
@@ -68,7 +79,7 @@
 		    }
 	        $.ajax({
 	           type:'POST',
-	           url:"../backend/logic/login.php",
+	           url:"../../Backend/logic/login.php",
 	           data:{ email:email, password: password, remember: remember},
 	           success:function(response){
 	           	 	var responseObj = JSON.parse(response);
