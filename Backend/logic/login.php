@@ -5,7 +5,7 @@
     $password = mysqli_real_escape_string($db, $_POST['password']);
     $errors = [];
     if (empty($email)) {
-        array_push($errors, "Email is required");
+        array_push($errors, "Emai is required");
     }
     if (empty($password)) {
         array_push($errors, "Password is required");
