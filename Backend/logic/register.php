@@ -17,13 +17,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
 
-    // SQL-Abfrage zum Einfügen der Daten in die Tabelle user2
+    // Überprüfen, ob das Passwort mit der Bestätigung übereinstimmt
+    if ($password !== $confirm_password) {
+        $response = array('status' => 'error', 'message' => 'Die Passwörter stimmen nicht überein');
+        echo json_encode($response);
+        exit;
+    }
+
+    // Überprüfen, ob der Benutzername bereits vorhanden ist
+    $check_username_query = "SELECT * FROM user WHERE username = '$username' LIMIT 1";
+    $check_username_result = mysqli_query($conn, $check_username_query);
+    if (mysqli_num_rows($check_username_result) > 0) {
+        $response = array('status' => 'error', 'message' => 'Der Benutzername ist bereits vergeben');
+        echo json_encode($response);
+        exit;
+    }
+    // Passwort hashen
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // SQL-Abfrage zum Einfügen der Daten in die Tabelle user
     $sql = "INSERT INTO user (type, username, f_name, l_name, address, zip_code, town, email, password)
-            VALUES ('$type', '$username', '$f_name', '$l_name', '$address', '$zip_code', '$town', '$email', '$password')";
+            VALUES ('$type', '$username', '$f_name', '$l_name', '$address', '$zip_code', '$town', '$email', '$hashed_password')";
 
     // Abfrage ausführen
     if (mysqli_query($conn, $sql)) {
         // Erfolgreich eingefügt
+        $_SESSION['username'] = $username; // Benutzer einloggen
+        $_SESSION['loggedin'] = true; // Anmeldestatus auf true setzen
+
         $response = array('status' => 'success', 'message' => 'Daten erfolgreich gespeichert');
         echo json_encode($response);
     } else {

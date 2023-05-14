@@ -1,9 +1,4 @@
-<?php 
-  session_start(); 
-  if (isset($_SESSION['name'])) {
-  	header('location: index.php');
-  }
-?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -11,32 +6,9 @@
         <?php
 			include 'head.php';
 		?>
-
-		
-		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-		<!----webfonts---->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-		<!----//webfonts---->
-		<!----start-alert-scroller---->
 	
-
-
-		<style type="text/css">
-			input[type="password"],
-			input[type="email"]
-			{
-				border: 1px solid #EEE;
-			    outline-color: #E45D5D;
-			    width: 96%;
-			    font-size: 1em;
-			    padding: 0.5em;
-			    font-family: 'Open Sans', sans-serif;
-			}
-		</style>
 	</head>
 	<body>
-		<!---start-wrap---->
-
         <header>
 			<?php 
 				include 'navbar.php';
@@ -165,6 +137,7 @@
           $('#error').hide(); // Fehlermeldung ausblenden
           $('#success-message').text('Registrierung erfolgreich.'); // Erfolgsmeldung anzeigen
           $('#success-message').show(); // Erfolgsmeldung einblenden
+          window.location.href = 'index.php';
         },
         error: function(xhr, status, error) {
           // Fehlerhafte Antwort verarbeiten
