@@ -19,8 +19,11 @@
                     <a class="nav-link active" aria-current="page" href="#">Produkte</a>
                 </li>
             </ul>
-            <a class="navbar-brand" href="#">CuppaLife - Dein Teeladen</a>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <a class="navbar-brand" href="#">
+            <img src="../res/img/Logo.png" alt="CuppaLife Logo" style="width: 250px; height: auto;">
+        </a>
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
                 <?php
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     echo '<li class="nav-item dropdown">';
@@ -35,7 +38,7 @@
                     echo '</li>';
                 } else {
                     echo '<li class="nav-item">';
-                    echo '<a class="nav-link" href="login.php"><i class="fas fa-user me-2"></i>User-Login</a>';
+                    echo '<a class="nav-link" href="login.php"><i class="fas fa-user me-2"></i>Anmelden</a>';
                     echo '</li>';
                 }
                 ?>

@@ -16,7 +16,7 @@
 			?>
 		</header>
 <body>
-    <h1 class="test" >test</h1>
+<img src="../res/img/Tee-Wallpaper.jpg" alt="Tee Wallpaper" class="img-fluid">
     
 </body>
 <footer>

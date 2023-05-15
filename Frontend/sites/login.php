@@ -1,66 +1,73 @@
-<!DOCTYPE html>
-<head>
-    <?php include 'head.php'; ?>
-    <title>Login</title>
-</head>
-<body>
-    <header>
-        <?php include 'navbar.php'; ?>
-    </header>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>CuppaLife</title>
+        <?php
+			include 'head.php';
+		?>
+	
+	</head>
+	<body>
+        <header>
+			<?php 
+				include 'navbar.php';
+			?>
+		</header>
+
     <div class="container my-5">
   <div class="row justify-content-center">
-    <div class="col-lg-6">
-      <div class="card border-0">
-        <div class="card-header bg-white">
-          <h1 class="text-center">LOGIN OR CREATE AN ACCOUNT</h1>
+    <div class="col-lg-7">
+    <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">Anmelden</h1>
         </div>
 
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card border-secondary mb-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-secondary mb-3">
                 <div class="card-header bg-transparent border-secondary">
-                  <h3 class="text-center">NEW CUSTOMERS</h3>
+                    <h3 class="text-center">Neue Kunde</h3>
                 </div>
 
                 <div class="card-body text-secondary">
-                  <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-                  <a class="btn btn-primary btn-lg btn-block" href="register.php">Create an Account</a>
+                    <p>Indem Sie ein Konto in unserem Shop erstellen, können Sie den Bestellvorgang schneller durchlaufen, mehrere Lieferadressen speichern, Ihre Bestellungen anzeigen und verfolgen und vieles mehr.</p>
+                    <a class="btn" href="register.php">Konto erstellen</a>
                 </div>
-              </div>
             </div>
-
-            <div class="col-md-6">
-              <div class="card border-secondary mb-3">
-                <div class="card-header bg-transparent border-secondary">
-                  <h3 class="text-center">Registrierte Kunden</h3>
-                </div>
-
-                <div class="card-body text-secondary">
-                  <div id="error" style="display:none; background: #c05353;color: #fff;padding: 10px;border-radius: 7px;text-align: center;margin-bottom: 10px;"></div>
-                  <form id ="form">
-                    <div class="form-group">
-                      <label for="username">Username*</label>
-                      <input type="text" class="form-control form-control-lg" id="username" name="username" required>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="password">Password*</label>
-                      <input type="password" class="form-control form-control-lg" id="password" name="password" required>
-                    </div>
-
-
-                    <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary">Anmelden</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="col-md-6">
+            <div class="card border-secondary mb-3">
+                <div class="card-header bg-transparent border-secondary">
+                    <h3 class="text-center">Registrierte Kunden</h3>
+                </div>
+
+                <div class="card-body text-secondary">
+                    <div id="error" style="display:none; background: #c05353;color: #fff;padding: 10px;border-radius: 7px;text-align: center;margin-bottom: 10px;"></div>
+                    <form id="form">
+                        <div class="form-group col-md-11">
+                            <label for="username">Benutzername*</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+
+                        <div class="form-group col-md-11">
+                            <label for="password">Passwort*</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn">Anmelden</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
    <script type="text/javascript">
@@ -98,3 +105,15 @@
         });
     }
 </script>
+
+
+
+</body>
+
+<footer>
+<?php
+				include 'footer.php';
+			?>
+</footer>
+
+</html>

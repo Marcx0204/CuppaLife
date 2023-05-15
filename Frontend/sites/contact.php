@@ -1,52 +1,75 @@
 <!DOCTYPE html>
-<html lang="de-AT">
-	<head>
-		<title>Help</title>
-
-		<?php
-			include 'head.php';
+<html>
+<head>
+	<title>Kontakt</title>
+	<?php
+		include 'head.php';
+	?>
+</head>
+<body>
+	<header>
+		<?php 
+			include 'navbar.php';
 		?>
+	</header>
 
-	
-	</head>
-	<body>
-		<header>
-			<?php 
-				include 'navbar.php';
-			?>
-		</header>
-		<main class="container mt-5 pt-5">
-			<!---->
+	<div id="contact" class="contact-area section-padding mt-3">
+		<div class="container">										
+			<div class="section-title text-center">
+				<h1>Haben sie Fragen ?</h1>
+				<p>Dann füllen Sie gerne unser Kontakformular aus oder Kontaktieren Sie einen unserer Mitarbeiter auf eine der verschiedenen Möglichkeiten!</p>
+			</div>					
+			<div class="row">
+				<div class="col-lg-7">	
+					<div class="contact">
+						<form class="form" name="enq" method="post" action="contact.php" onsubmit="return validation();">
+							<div class="row">
+								<div class="form-group col-md-6">
+									<input type="text" name="name" class="form-control" placeholder="Name" required="required">
+								</div>
+								<div class="form-group col-md-6">
+									<input type="email" name="email" class="form-control" placeholder="Email" required="required">
+								</div>
+								<div class="form-group col-md-12">
+									<input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
+								</div>
+								<div class="form-group col-md-12">
+									<textarea rows="6" name="message" class="form-control" placeholder="Your Message" required="required"></textarea>
+								</div>
+								<div class="col-md-12 text-center">
+									<button type="submit" value="Send message" name="submit" id="submitButton" class="btn" title="Submit Your Message!">Send Message</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div><!--- END COL --> 
+				<div class="col-lg-5">
+					<div class="single_address">
+						<i class="fa fa-map-marker"></i>
+						<h4>Unsere Adresse</h4>
+						<p>Hochstädtplatz 5, Wien, Östereich</p>
+					</div>
+					<div class="single_address">
+						<i class="fa fa-envelope"></i>
+						<h4>Senden Sie Ihre Nachricht</h4>
+						<p>Info@cuppalife.com</p>
+					</div>
+					<div class="single_address">
+						<i class="fa fa-phone"></i>
+						<h4>Rufen Sie uns an</h4>
+						<p>(+43) 517 397 7100</p>
+					</div>
+					<div class="single_address">
+						<i class="fa fa-clock-o"></i>
+						<h4>Öffnungszeiten</h4>
+						<p>Mo - Fr: 08.00 - 16.00 Uhr<br>Sa: 10.00 - 14.00 Uhr</p>
+					</div>					
+				</div><!--- END COL --> 
 			
-        <h1 class="mb-4">Über uns</h1>
-        
-        <section class="mb-5">
-            <h2>Unsere Geschichte</h2>
-            <p>
-                CuppaLife wurde im Jahr 20XX gegründet, um Teeliebhabern eine große Auswahl an hochwertigen Tee-Sets, Tee-Geschirr und Tee-Zubehör zu bieten. Wir haben uns zum Ziel gesetzt, unsere Leidenschaft für Tee mit unseren Kunden zu teilen und Ihnen dabei zu helfen, die perfekte Tasse Tee zuzubereiten.
-            </p>
-        </section>
 
-        <section class="mb-5">
-            <h2>Unsere Mission</h2>
-            <p>
-                Unsere Mission ist es, unseren Kunden qualitativ hochwertige Produkte und exzellenten Service zu bieten. Wir möchten, dass jeder Kunde mit seinem Einkaufserlebnis bei CuppaLife zufrieden ist und unser Wissen und unsere Leidenschaft für Tee mit ihnen teilt.
-            </p>
-        </section>
-
-        <section class="mb-5">
-            <h2>Unser Team</h2>
-            <p>
-                Das CuppaLife-Team besteht aus erfahrenen Teeliebhabern und Experten, die sich leidenschaftlich für Tee einsetzen und bestrebt sind, unseren Kunden das bestmögliche Einkaufserlebnis zu bieten. Wir arbeiten eng zusammen, um die neuesten Trends in der Teebranche zu verfolgen und unser Angebot ständig zu erweitern und zu verbessern.
-            </p>
-        </section>
-
-        <section>
-            <h2>Kontakt</h2>
-            <p>
-                Wenn Sie Fragen oder Anregungen haben, zögern Sie bitte nicht, uns zu kontaktieren. Wir freuen uns darauf, von Ihnen zu hören und Ihnen bei allen Fragen rund um Tee und unsere Produkte zu helfen.
-            </p>
-        </section>
+		</div><!--- END ROW -->
+	</div><!--- END CONTAINER -->	
+</div>
 			
 		</main>
 		<footer>

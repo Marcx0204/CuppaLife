@@ -21,7 +21,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          <h1 class="text-center">CREATE AN ACCOUNT</h1>
+          <h1 class="text-center">Erstelle einen Konto</h1>
         </div>
 
         <div class="card-body">
@@ -29,65 +29,65 @@
           <form id="registration-form">
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group">
-                  <label for="type">Title</label>
+                <div class="form-group col-md-11">
+                  <label for="type">Anrede*</label>
                   <select class="form-control" name="type" id="type">
-                    <option value="Mr">Mr</option>
-                    <option value="Ms">Ms</option>
+                    <option value="Herr">Herr</option>
+                    <option value="Frau">Frau</option>
                   </select>
                 </div>
 
-                <div class="form-group">
-                  <label for="f_name">First Name*</label>
+                <div class="form-group col-md-11">
+                  <label for="f_name">Vorname*</label>
                   <input type="text" class="form-control" name="f_name" id="f_name" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="l_name">Last Name*</label>
+                <div class="form-group col-md-11">
+                  <label for="l_name">Nachname*</label>
                   <input type="text" class="form-control" name="l_name" id="l_name" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="address">Address*</label>
+                <div class="form-group col-md-11">
+                  <label for="address">Adresse*</label>
                   <input type="text" class="form-control" name="address" id="address" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="zip_code">Zip Code*</label>
+                <div class="form-group col-md-11">
+                  <label for="zip_code">PLZ*</label>
                   <input type="text" class="form-control" name="zip_code" id="zip_code" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="town">Town*</label>
+                <div class="form-group col-md-11">
+                  <label for="town">Stadt*</label>
                   <input type="text" class="form-control" name="town" id="town" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="email">Email Address*</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <div class="form-group">
-                  <label for="username">Username*</label>
+                <div class="form-group col-md-11">
+                  <label for="username">Benutzername*</label>
                   <input type="text" class="form-control" name="username" id="username" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="password">Password*</label>
-                  <input type="password" class="form-control" name="password" id="password" required>
+                <div class="form-group col-md-11">
+                  <label for="email">Email Adresse*</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="confirm_password">Confirm Password*</label>
-                  <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                <div class="form-group col-md-11">
+                  <label for="password">Passwort*</label>
+                  <input type="password" class="form-control" name="password" id="password" minlength="8" required>
+                </div>
+
+                <div class="form-group col-md-11">
+                  <label for="confirm_password">Passwort wiederholen*</label>
+                  <input type="password" class="form-control" name="confirm_password" id="confirm_password" minlength="8" required>
                 </div>
               </div>
             </div>
 
             <div class="form-group text-center">
-              <button type="submit" class="btn btn-primary">Register</button>
+              <button type="submit" class="btn btn-primary">Registrieren</button>
             </div>
           </form>
         </div>
