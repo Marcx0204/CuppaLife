@@ -27,7 +27,7 @@
         <div class="col-md-6">
             <div class="card border-secondary mb-3">
                 <div class="card-header bg-transparent border-secondary">
-                    <h3 class="text-center">Neue Kunde</h3>
+                    <h3 class="text-center">Neuer Kunde</h3>
                 </div>
 
                 <div class="card-body text-secondary">
