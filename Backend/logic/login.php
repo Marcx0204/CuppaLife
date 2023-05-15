@@ -1,45 +1,38 @@
 <?php
+session_start();
+
+// Überprüfen, ob das Formular abgesendet wurde
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include_once '../config/dbaccess.php';
 
-    $email = mysqli_real_escape_string($db, $_POST['email']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
-    $errors = [];
-    if (empty($email)) {
-        array_push($errors, "Email is required");
-    }
-    if (empty($password)) {
-        array_push($errors, "Password is required");
-    }
+    // Daten aus dem POST-Array abrufen und escapen
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    if (count($errors) == 0) {
-        $password = md5($password);
-        $query = "SELECT * FROM user WHERE email='$email' AND password='$password'";
-        $results = mysqli_query($db, $query);
-        if (mysqli_num_rows($results) == 1) {
+    // Überprüfen, ob der Benutzername existiert
+    $check_username_query = "SELECT * FROM user WHERE username = '$username' LIMIT 1";
+    $check_username_result = mysqli_query($conn, $check_username_query);
+    if (mysqli_num_rows($check_username_result) > 0) {
+        // Benutzer gefunden, Überprüfen des Passworts
+        $user = mysqli_fetch_assoc($check_username_result);
+        $hashed_password = $user['password'];
 
-            $user = $results->fetch_assoc();
-
-            $_SESSION['name'] = $user['username'];
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $user['role'];
-            $_SESSION['success'] = "You are now logged in";
-
-            if($_POST['remember']==true)  {
-               
-                setcookie("userid",$user['id'],time() + (86400 * 30),'/');
-            }
-            if($_POST['remember']==false)  {
-                setcookie("userid",$user['id'],0);
-            }
-            $return['status'] ="OK";
-        }else {
-            $return['status'] ="NO";
+        if (password_verify($password, $hashed_password)) {
+            // Passwort stimmt überein, Benutzer einloggen
+            $_SESSION['username'] = $username;
+            $_SESSION['loggedin'] = true;
+        
+            $response = array('status' => 'OK', 'message' => 'Login erfolgreich');
+            echo json_encode($response);
+            exit; // Füge diese Zeile hinzu, um das Skript zu beenden
         }
+    }        
 
-        echo json_encode($return);
-    }else{
-        echo json_encode($errors);
-    }
+    // Benutzername oder Passwort ist ungültig
+    $response = array('status' => 'NO', 'message' => 'Ungültige Anmeldedaten');
+    echo json_encode($response);
+
+    // Verbindung schließen
+    mysqli_close($conn);
+}
 ?>
-
-

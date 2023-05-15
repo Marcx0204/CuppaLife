@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <head>
     
@@ -15,7 +16,7 @@
 			?>
 		</header>
 <body>
-    <h1>test</h1>
+<img src="../res/img/Tee-Wallpaper.jpg" alt="Tee Wallpaper" class="img-fluid">
     
 </body>
 <footer>
