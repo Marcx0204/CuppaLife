@@ -12,7 +12,7 @@
           <a class="nav-link" href="register.php">Registrieren</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Produkte</a>
+          <a class="nav-link active" aria-current="page" href="produkte.php">Produkte</a>
         </li>
       </ul>
       <a class="navbar-brand" href="#">CuppaLife - Dein Teeladen</a>
@@ -21,7 +21,7 @@
           <a class="nav-link" href="login.php"><i class="fas fa-user me-2"></i>User-Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i>Warenkorb <span class="badge rounded-pill bg-secondary">0</span></a>
+          <a class="nav-link" href="warenkorb.php"><i class="fas fa-shopping-bag me-2"></i>Warenkorb <span class="badge rounded-pill bg-secondary">0</span></a>
         </li>
       </ul>
     </div>
