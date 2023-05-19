@@ -16,7 +16,10 @@
                     <a class="nav-link" href="register.php">Tee-Sets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Produkte</a>
+                    <a class="nav-link active" aria-current="page" href="produkte.php">Produkte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="warenkorb.php">Warenkorb</a>
                 </li>
             </ul>
         <a class="navbar-brand" href="#">
