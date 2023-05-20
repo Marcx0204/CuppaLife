@@ -14,6 +14,8 @@
         </header>
 
         <h1>Ihr Warenkorb</h1>
+        
+
 
         <ul id="cart-list" class="list-group"></ul>
 
@@ -28,12 +30,11 @@ function loadCartItems() {
         success: function(data) {
             var cartList = $("#cart-list");
             cartList.empty();
-
             var total = 0;
 
             data.forEach(function(item) {
                 var listItem = $("<li>");
-                listItem.text('Produkt: ' + item.name + ', Preis: ' + item.price + ', Anzahl: ' + item.quantity + ' id ' + item.id );
+                listItem.text('Produkt: ' + item.name + ', Preis: ' + item.price + ', Anzahl: ' + item.quantity );
 
                 var removeButton = $("<button>").text("Entfernen");
                 removeButton.click(function() {

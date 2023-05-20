@@ -19,7 +19,8 @@
                     <a class="nav-link active" aria-current="page" href="produkte.php">Produkte</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="warenkorb.php">Warenkorb</a>
+                <a class="nav-link" href="warenkorb.php"><i class="fas fa-shopping-bag me-2"></i>Warenkorb <span
+                            class="badge rounded-pill bg-secondary" id="cart-count"></span></a>
                 </li>
             </ul>
         <a class="navbar-brand" href="#">
@@ -46,10 +47,29 @@
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i>Warenkorb <span
-                            class="badge rounded-pill bg-secondary">0</span></a>
+
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+        url: '../../Backend/logic/warenkorb.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+
+            var cartCount = data.length;
+            $('#cart-count').text(cartCount);
+
+        },
+        error: function(err) {
+            console.error(err);
+        }
+    });
+
+});
+
+</script>
