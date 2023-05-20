@@ -19,7 +19,7 @@
             <option value="Chineschises Tee">Chineschises Tee</option>
         </select>
 
-        <ul id="data-list" class="list-group"></ul>
+        <ul class="list-group" id="data-list" ></ul>
 
         <script>
     function loadProducts(selectedCategory) {
@@ -45,7 +45,7 @@
 
                         data.forEach(function(item) {
                             var listItem = $("<li>");
-
+                            listItem.addClass("list-group-item");
                             listItem.text('Produkt: ' + item.Name + ', Preis: ' + item.Preis + ', Bewertung: ' + item.Bewertung + ' Sterne');
 
                             if(item.Bild) {

@@ -13,13 +13,13 @@
             ?>
         </header>
 
-        <h1>Ihr Warenkorb</h1>
         
 
 
-        <ul id="cart-list" class="list-group"></ul>
+        <ul class="list-group" id="cart-list" class="list-group"></ul>
 
-        <div id="total-price"></div>
+        <ul class="list-group" id="cart-list" class="list-group"><li class="list-group-item" id="total-price"></li></ul>
+
 
         <script>
 function loadCartItems() {
@@ -34,8 +34,8 @@ function loadCartItems() {
 
             data.forEach(function(item) {
                 var listItem = $("<li>");
-                listItem.text('Produkt: ' + item.name + ', Preis: ' + item.price + ', Anzahl: ' + item.quantity );
-
+                listItem.text('Produkt: ' + item.name + ', Preis: ' + item.price + ', Anzahl: ' + item.quantity + ' ' );
+                listItem.addClass("list-group-item");
                 var removeButton = $("<button>").text("Entfernen");
                 removeButton.click(function() {
                     removeItem(item);
@@ -53,6 +53,7 @@ function loadCartItems() {
                     changeQuantity(item, 1);
                 });
                 listItem.append(increaseButton);
+
 
                 total += parseFloat(item.price) * item.quantity;
 
