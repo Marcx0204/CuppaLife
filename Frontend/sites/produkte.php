@@ -22,68 +22,97 @@
         <ul id="data-list" class="list-group"></ul>
 
         <script>
-        function loadProducts(selectedCategory) {
-            $.ajax({
-                url: '../../Backend/logic/produkte.php',
-                type: 'GET',
-                data: { category: selectedCategory },
-                dataType: 'json',
-                success: function(data) {
-                    var dataList = $("#data-list");
-                    dataList.empty();
+    function loadProducts(selectedCategory) {
+        $.ajax({
+            url: '../../Backend/logic/produkte.php',
+            type: 'GET',
+            data: { category: selectedCategory },
+            dataType: 'json',
+            success: function(data) {
+                var dataList = $("#data-list");
+                dataList.empty();
 
-                    data.forEach(function(item) {
-                        var listItem = $("<li>");
+                // Fetch current cart items
+                $.ajax({
+                    url: '../../Backend/logic/warenkorb.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(cartItems) {
+                        // Map cart items to names for easier lookup
+                        var cartItemNames = cartItems.map(function(item) {
+                            return item.name;
+                        });
 
-                        listItem.text('Produkt: ' + item.Name + ', Preis: ' + item.Preis + ', Bewertung: ' + item.Bewertung + ' Sterne');
+                        data.forEach(function(item) {
+                            var listItem = $("<li>");
 
-                        if(item.Bild) {
-                            var productImage = $('<img src="../../Backend/uploads/'+ item.Bild +'" alt="'+ item.Name +'">');
-                            productImage.css('width', '50px');
-                            listItem.prepend(productImage);
-                        }
+                            listItem.text('Produkt: ' + item.Name + ', Preis: ' + item.Preis + ', Bewertung: ' + item.Bewertung + ' Sterne');
 
-                        var cartLink = $("<a href='#'>In den Warenkorb legen</a>");
-                        cartLink.data('product-id', item.product_id);
-                        cartLink.click(addToCart);
+                            if(item.Bild) {
+                                var productImage = $('<img src="../../Backend/uploads/'+ item.Bild +'" alt="'+ item.Name +'">');
+                                productImage.css('width', '50px');
+                                listItem.prepend(productImage);
+                            }
 
-                        listItem.append(cartLink);
+                            var cartLink = $("<a href='#' class='cart-link'>In den Warenkorb legen</a>");
+                            cartLink.data('product-name', item.Name);
+                            cartLink.data('product-price', item.Preis);
+                            cartLink.data('product-id', item.product_id);
 
-                        dataList.append(listItem);
-                    });
-                },
-                error: function(err) {
-                    console.error(err);
-                }
-            });
-        }
+                            cartLink.click(addToCart);
 
-        $('#category-select').on('change', function() {
-            loadProducts($(this).val());
+                            // Check if item is in cart
+                            var isInCart = cartItemNames.includes(item.Name);
+                            if(isInCart) {
+                                cartLink.addClass('added').text('Hinzugefügt zum Warenkorb');
+                                cartLink.off('click'); // Remove click event to disable the link
+                            }
+
+                            listItem.append(cartLink);
+
+                            dataList.append(listItem);
+                        });
+                    }
+                });
+            },
+            error: function(err) {
+                console.error(err);
+            }
         });
+    }
 
-        function addToCart(event) {
-            event.preventDefault();
+    $('#category-select').on('change', function() {
+        loadProducts($(this).val());
+    });
 
-            var productId = $(this).data('product-id');
+    function addToCart(event) {
+        event.preventDefault();
 
-            $.ajax({
-                url: '../../Backend/logic/warenkorb.php',
-                type: 'POST',
-                data: { product_id: productId },
-                success: function(data) {
-                    console.log(productId);
-                },
-                error: function(err) {
-                    console.error(err);
-                }
-            });
-        }
+        var productName = $(this).data('product-name');
+        var productPrice = $(this).data('product-price');
+        var productId = $(this).data('product-id');
 
-        $(document).ready(function() {
-            loadProducts($('#category-select').val());
+
+        $.ajax({
+            url: '../../Backend/logic/warenkorb.php',
+            type: 'POST',
+            data: { product_name: productName, product_price:productPrice, product_id : productId },
+            success: function(data) {
+                console.log(productName, productPrice, productId);
+                $(event.target).addClass('added').text('Hinzugefügt zum Warenkorb');
+                $(event.target).off('click'); // Remove click event to disable the link
+            },
+            error: function(err) {
+                console.error(err);
+            }
         });
-        </script>
+    }
+
+    $(document).ready(function() {
+        loadProducts($('#category-select').val());
+    });
+</script>
+
 
         <footer>
         <?php
