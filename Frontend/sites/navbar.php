@@ -18,10 +18,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="produkte.php">Produkte</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="warenkorb.php"><i class="fas fa-shopping-bag me-2"></i>Warenkorb <span
-                            class="badge rounded-pill bg-secondary" id="cart-count"></span></a>
-                </li>
             </ul>
         <a class="navbar-brand" href="#">
             <img src="../res/img/Logo.png" alt="CuppaLife Logo" style="width: 250px; height: auto;">
@@ -47,7 +43,8 @@
                 }
                 ?>
                 <li class="nav-item">
-
+                <a class="nav-link" href="warenkorb.php"><i class="fas fa-shopping-bag me-2"></i>Warenkorb <span
+                    class="badge rounded-pill bg-secondary" id="cart-count"></span></a>
                 </li>
             </ul>
         </div>

@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted mt-3 fixed-bottom">
+<footer class="text-center text-lg-start bg-light text-muted mt-3">
     <!-- Section: Social media -->
     
     <!-- Section: Social media -->
