@@ -32,7 +32,7 @@
 
                 <div class="card-body text-secondary">
                     <p>Indem Sie ein Konto in unserem Shop erstellen, können Sie den Bestellvorgang schneller durchlaufen, mehrere Lieferadressen speichern, Ihre Bestellungen anzeigen und verfolgen und vieles mehr.</p>
-                    <a class="btn" href="register.php">Konto erstellen</a>
+                    <a class="btn btn-block" href="register.php">Konto erstellen</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn">Anmelden</button>
+                            <button type="submit" class="btn btn-block">Anmelden</button>
                         </div>
                     </form>
                 </div>

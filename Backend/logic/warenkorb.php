@@ -6,11 +6,12 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (isset($_POST['product_id'], $_POST['product_name'], $_POST['product_price'])) {
+        if (isset($_POST['product_id'], $_POST['product_name'], $_POST['product_price'], $_POST['product_img'])) {
             $product = [
                 'id' => $_POST['product_id'],
                 'name' => $_POST['product_name'],
                 'price' => $_POST['product_price'],
+                'img' => $_POST['product_img'],
                 'quantity' => 1
             ];
             $_SESSION['warenkorb'][$_POST['product_id']] = $product;

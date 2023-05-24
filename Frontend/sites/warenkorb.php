@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOC<!DOCTYPE HTML>
 <html>
     <head>
         <title>Warenkorb - CuppaLife</title>
@@ -12,104 +12,128 @@
                 include 'navbar.php';
             ?>
         </header>
-
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Warenkorb</h1>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group" id="cart-list"></ul>
         
-
-
-        <ul class="list-group" id="cart-list" class="list-group"></ul>
-
-        <ul class="list-group" id="cart-list" class="list-group"><li class="list-group-item" id="total-price"></li></ul>
-
-
+                    <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+                        <div class="mt-4">
+                            <label class="text-muted font-weight-normal">Promocode</label>
+                            <input type="text" placeholder="ABC" class="form-control">
+                        </div>
+                        <div class="d-flex">
+                            <div class="text-right mt-4 mr-4">
+                                <strong><label class="text-muted font-weight-normal m-0">Total price</label></strong>
+                                <strong><div id="total-price"></div></strong>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="float-right">
+                        <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
+                        <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
-function loadCartItems() {
-    $.ajax({
-        url: '../../Backend/logic/warenkorb.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            var cartList = $("#cart-list");
-            cartList.empty();
-            var total = 0;
+        function loadCartItems() {
+            $.ajax({
+                url: '../../Backend/logic/warenkorb.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var cartList = $("#cart-list");
+                    cartList.empty();
+                    var total = 0;
 
-            data.forEach(function(item) {
-                var listItem = $("<li>");
-                listItem.text('Produkt: ' + item.name + ', Preis: ' + item.price + ', Anzahl: ' + item.quantity + ' ' );
-                listItem.addClass("list-group-item");
-                var removeButton = $("<button>").text("Entfernen");
-                removeButton.click(function() {
-                    removeItem(item);
-                });
-                listItem.append(removeButton);
+                    data.forEach(function(item) {
+    var listItem = $("<li>").addClass("list-group-item d-flex justify-content-between");
 
-                var decreaseButton = $("<button>").text("-");
-                decreaseButton.click(function() {
-                    changeQuantity(item, -1);
-                });
-                listItem.append(decreaseButton);
+    var productImage = $('<img src="../../Backend/uploads/'+ item.img +'" alt="'+ item.name +'">');
+    productImage.addClass("img-thumbnail").attr("style", "width:120px; height:120px;"); // set image size
 
-                var increaseButton = $("<button>").text("+");
-                increaseButton.click(function() {
-                    changeQuantity(item, 1);
-                });
-                listItem.append(increaseButton);
+    var productName = $('<div>').addClass('font-weight-bold mb-1').text('Produkt: ' + item.name);
+    var productPrice = $('<div>').text('Preis: ' + item.price);
+    var productQuantity = $('<div>').text('Anzahl: ' + item.quantity);
 
+    var productInfo = $('<div>').addClass('d-flex align-items-center').append(productImage, $('<div>').addClass('ml-3').append(productName, productPrice, productQuantity));
+    
+    var decreaseButton = $("<button>").addClass('btn2').text("-");
+        decreaseButton.click(function() {
+            changeQuantity(item, -1);
+        });
 
-                total += parseFloat(item.price) * item.quantity;
-
-                cartList.append(listItem);
-            });
-
-            $('#total-price').text('Gesamtpreis: ' + total);
-        },
-        error: function(err) {
-            console.error(err);
-        }
+    var increaseButton = $("<button>").addClass('btn2').text("+");
+    increaseButton.click(function() {
+    changeQuantity(item, 1);
+        });
+    var removeButton = $("<button>").addClass('btn2').text("Entfernen");
+    removeButton.click(function() {
+        removeItem(item);
     });
-}
 
-function removeItem(item) {
-    $.ajax({
-        url: '../../Backend/logic/warenkorb.php?product_id=' + item.id,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function(data) {
-            loadCartItems();
-        },
-        error: function(err) {
-            console.error(err);
-        }
-    });
-}
+    
 
+    var buttonGroup = $('<div>').addClass('d-flex flex-column align-items-end').append(increaseButton, decreaseButton, removeButton);
 
-function changeQuantity(item, change) {
-    $.ajax({
-        url: '../../Backend/logic/warenkorb.php',
-        type: 'PATCH',
-        dataType: 'json',
-        data: JSON.stringify({ product_id: item.id, quantity_change: change }),
-        contentType: 'application/json',  // This line is important
-        success: function(data) {
-            loadCartItems();
-        },
-        error: function(err) {
-            console.error(err);
-        }
-    });
-}
+    listItem.append(productInfo, buttonGroup);
 
-
-$(document).ready(function() {
-    loadCartItems();
+    total += parseFloat(item.price) * item.quantity;
+    cartList.append(listItem);
 });
 
+$('#total-price').text(total);
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            });
+        }
+
+        function removeItem(item) {
+            $.ajax({
+                url: '../../Backend/logic/warenkorb.php?product_id=' + item.id,
+                type: 'DELETE',
+                dataType: 'json',
+                success: function(data) {
+                    loadCartItems();
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            });
+        }
+
+        function changeQuantity(item, change) {
+            $.ajax({
+                url: '../../Backend/logic/warenkorb.php',
+                type: 'PATCH',
+                dataType: 'json',
+                data: JSON.stringify({ product_id: item.id, quantity_change: change }),
+                contentType: 'application/json',  // This line is important
+                success: function(data) {
+                    loadCartItems();
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadCartItems();
+        });
         </script>
 
         <footer>
-        <?php
-            include 'footer.php';
-        ?>
+            <?php
+                include 'footer.php';
+            ?>
         </footer>
     </body>
 </html>

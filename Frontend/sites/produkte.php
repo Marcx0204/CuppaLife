@@ -13,76 +13,92 @@
             ?>
         </header>
 
-        <select id="category-select">
-            <option value="grüner Tee">grüner Tee</option>
-            <option value="japanisches Tee">japanisches Tee</option>
-            <option value="Chineschises Tee">Chineschises Tee</option>
-        </select>
-
-        <ul class="list-group" id="data-list" ></ul>
+        <div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="#" class="category-link" data-category="Indischer Tee">Indischer Tee</a> |
+            <a href="#" class="category-link" data-category="Japanischer Tee">Japanischer Tee</a> |
+            <a href="#" class="category-link" data-category="Chinesischer Tee">Chinesischer Tee</a>
+        </div>
+    </div>
+    <div class="row mt-4" id="data-list">
+    </div>
+</div>
 
         <script>
-    function loadProducts(selectedCategory) {
-        $.ajax({
-            url: '../../Backend/logic/produkte.php',
-            type: 'GET',
-            data: { category: selectedCategory },
-            dataType: 'json',
-            success: function(data) {
-                var dataList = $("#data-list");
-                dataList.empty();
+            
+        function loadProducts(selectedCategory) {
+            $.ajax({
+                url: '../../Backend/logic/produkte.php',
+                type: 'GET',
+                data: { category: selectedCategory },
+                dataType: 'json',
+                success: function(data) {
+                    var dataList = $("#data-list");
+                    dataList.empty();
 
-                // Fetch current cart items
-                $.ajax({
-                    url: '../../Backend/logic/warenkorb.php',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(cartItems) {
-                        // Map cart items to names for easier lookup
-                        var cartItemNames = cartItems.map(function(item) {
-                            return item.name;
-                        });
+                    // Fetch current cart items
+                    $.ajax({
+                        url: '../../Backend/logic/warenkorb.php',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(cartItems) {
+                            // Map cart items to names for easier lookup
+                            var cartItemNames = cartItems.map(function(item) {
+                                return item.name;
+                            });
 
-                        data.forEach(function(item) {
-                            var listItem = $("<li>");
-                            listItem.addClass("list-group-item");
-                            listItem.text('Produkt: ' + item.Name + ', Preis: ' + item.Preis + ', Bewertung: ' + item.Bewertung + ' Sterne');
+                            data.forEach(function(item) {
+                                var cardColumn = $('<div class="col-lg-4 col-md-6 mb-4">');
+                                var card = $('<div class="card h-100">');
+                                var cardBody = $('<div class="card-body">');
 
-                            if(item.Bild) {
-                                var productImage = $('<img src="../../Backend/uploads/'+ item.Bild +'" alt="'+ item.Name +'">');
-                                productImage.css('width', '50px');
-                                listItem.prepend(productImage);
-                            }
+                                var cardTitle = $('<h5 class="card-title">').text(item.Name);
+                                cardBody.append(cardTitle);
 
-                            var cartLink = $("<a href='#' class='cart-link'>In den Warenkorb legen</a>");
-                            cartLink.data('product-name', item.Name);
-                            cartLink.data('product-price', item.Preis);
-                            cartLink.data('product-id', item.product_id);
+                                if(item.Bild) {
+                                    var productImage = $('<img class="card-img-top" src="../../Backend/uploads/'+ item.Bild +'" alt="'+ item.Name +'">');
+                                    card.append(productImage);
+                                }
 
-                            cartLink.click(addToCart);
+                                // Erstelle eine separate Zeile für jeden Datenpunkt
+                                var priceRow = $('<p class="card-text">').text('Preis: ' + item.Preis);
+                                var ratingRow = $('<p class="card-text">').text('Bewertung: ' + item.Bewertung + ' Sterne');
+                                cardBody.append(priceRow);
+                                cardBody.append(ratingRow);
 
-                            // Check if item is in cart
-                            var isInCart = cartItemNames.includes(item.Name);
-                            if(isInCart) {
-                                cartLink.addClass('added').text('Hinzugefügt zum Warenkorb');
-                                cartLink.off('click'); // Remove click event to disable the link
-                            }
+                                var cartLink = $("<a href='#' class='btn'>In den Warenkorb legen</a>");
+                                cartLink.data('product-name', item.Name);
+                                cartLink.data('product-img', item.Bild);
+                                cartLink.data('product-price', item.Preis);
+                                cartLink.data('product-id', item.product_id);
+                                cartLink.click(addToCart);
 
-                            listItem.append(cartLink);
+                                // Check if item is in cart
+                                var isInCart = cartItemNames.includes(item.Name);
+                                if(isInCart) {
+                                    cartLink.addClass('disabled').text('Zum Warenkorb hinzugefügt');
+                                    cartLink.off('click'); // Remove click event to disable the link
+                                }
 
-                            dataList.append(listItem);
-                        });
-                    }
-                });
-            },
+                                cardBody.append(cartLink);
+                                card.append(cardBody);
+                                cardColumn.append(card);
+                                dataList.append(cardColumn);
+                            });
+                        }
+                    });
+                },
             error: function(err) {
                 console.error(err);
             }
         });
     }
 
-    $('#category-select').on('change', function() {
-        loadProducts($(this).val());
+    $('.category-link').on('click', function(event) {
+        event.preventDefault();
+        var category = $(this).data('category');
+        loadProducts(category);
     });
 
     function addToCart(event) {
@@ -91,15 +107,16 @@
         var productName = $(this).data('product-name');
         var productPrice = $(this).data('product-price');
         var productId = $(this).data('product-id');
+        var productImg = $(this).data('product-img');
 
 
         $.ajax({
             url: '../../Backend/logic/warenkorb.php',
             type: 'POST',
-            data: { product_name: productName, product_price:productPrice, product_id : productId },
+            data: { product_name: productName, product_price:productPrice, product_id : productId, product_img : productImg},
             success: function(data) {
-                console.log(productName, productPrice, productId);
-                $(event.target).addClass('added').text('Hinzugefügt zum Warenkorb');
+                console.log(productImg, productName, productPrice, productId);
+                $(event.target).addClass('added').text('Zum Warenkorb hinzugefügt');
                 $(event.target).off('click'); // Remove click event to disable the link
             },
             error: function(err) {
@@ -109,7 +126,8 @@
     }
 
     $(document).ready(function() {
-        loadProducts($('#category-select').val());
+        // Standardmäßig laden Sie den ersten Link ("Indischer Tee") beim Laden der Seite
+        loadProducts('Indischer Tee');
     });
 </script>
 
