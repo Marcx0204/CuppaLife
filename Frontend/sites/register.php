@@ -97,9 +97,20 @@
 </div>
 
 <script>
-  $(document).ready(function() {
-    $('#registration-form').submit(function(e) {
-      e.preventDefault(); // Verhindert das Standardformular-Verhalten
+ $(document).ready(function() {
+  $('#registration-form').submit(function(e) {
+    e.preventDefault(); // Verhindert das Standardformular-Verhalten
+
+    // Daten aus dem Formular sammeln
+    var password = $('#password').val();
+    var confirm_password = $('#confirm_password').val();
+
+    // Überprüfen, ob die Passwörter übereinstimmen
+    if (password !== confirm_password) {
+      $('#error').text('Die Passwörter stimmen nicht überein'); // Fehlermeldung anzeigen
+      $('#error').show(); // Fehlermeldung einblenden
+      return;
+    }
 
       // Daten aus dem Formular sammeln
       var type = $('#type').val();
