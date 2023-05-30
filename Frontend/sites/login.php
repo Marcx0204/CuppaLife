@@ -32,7 +32,7 @@
 
                 <div class="card-body text-secondary">
                     <p>Indem Sie ein Konto in unserem Shop erstellen, können Sie den Bestellvorgang schneller durchlaufen, mehrere Lieferadressen speichern, Ihre Bestellungen anzeigen und verfolgen und vieles mehr.</p>
-                    <a class="btn" href="register.php">Konto erstellen</a>
+                    <a class="btn btn-block" href="register.php">Konto erstellen</a>
                 </div>
             </div>
         </div>
@@ -47,8 +47,8 @@
                     <div id="error" style="display:none; background: #c05353;color: #fff;padding: 10px;border-radius: 7px;text-align: center;margin-bottom: 10px;"></div>
                     <form id="form">
                         <div class="form-group col-md-11">
-                            <label for="username">Benutzername*</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                        <label for="username">Benutzername oder Email*</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Benutzername oder Email" required>
                         </div>
 
                         <div class="form-group col-md-11">
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn">Anmelden</button>
+                            <button type="submit" class="btn btn-block">Anmelden</button>
                         </div>
                     </form>
                 </div>

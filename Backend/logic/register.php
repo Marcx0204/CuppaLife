@@ -5,6 +5,16 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include_once '../config/dbaccess.php';
 
+    // Überprüfen, ob alle erwarteten Felder vorhanden und nicht leer sind
+    $expected_fields = array('type', 'username', 'f_name', 'l_name', 'address', 'zip_code', 'town', 'email', 'password', 'confirm_password');
+    foreach ($expected_fields as $field) {
+        if (!isset($_POST[$field]) || empty($_POST[$field])) {
+            $response = array('status' => 'error', 'message' => 'Fehlende Felder im Formular');
+            echo json_encode($response);
+            exit;
+        }
+    }
+
     // Daten aus dem POST-Array abrufen und escapen
     $type = mysqli_real_escape_string($conn, $_POST['type']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -29,6 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check_username_result = mysqli_query($conn, $check_username_query);
     if (mysqli_num_rows($check_username_result) > 0) {
         $response = array('status' => 'error', 'message' => 'Der Benutzername ist bereits vergeben');
+        echo json_encode($response);
+        exit;
+    }
+
+    // Überprüfen, ob die E-Mail-Adresse bereits verwendet wird
+    $check_email_query = "SELECT * FROM user WHERE email = '$email' LIMIT 1";
+    $check_email_result = mysqli_query($conn, $check_email_query);
+    if (mysqli_num_rows($check_email_result) > 0) {
+        $response = array('status' => 'error', 'message' => 'Die E-Mail-Adresse wird bereits verwendet');
         echo json_encode($response);
         exit;
     }

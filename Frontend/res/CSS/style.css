@@ -97,7 +97,7 @@ body{
     }
     
     .btn {
-        border-radius: 30px;
+        border-radius: 25px;
         color: #fff;
         outline: medium none !important;
         padding: 15px 27px;
@@ -108,7 +108,9 @@ body{
         background: #358b57;
         font-family: 'poppins', sans-serif;
         cursor: pointer;
-        width: 100%;
+        width: 95%;
+        display: block;
+        margin: 0 auto;
     }
     
     .btn:hover,
@@ -117,6 +119,27 @@ body{
         color: #fff;
     }
     
+    .btn2 {
+        margin: 5px 0px 5px 0px;
+        border-radius: 15px;
+        color: #fff;
+        outline: medium none !important;
+        padding: 3px 15px;
+        text-transform: capitalize;
+        -webkit-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+        background: #358b57;
+        font-family: 'poppins', sans-serif;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    .btn2:hover,
+    .btn2:focus {
+        background: #205234;
+        color: #fff;
+    }
     /*START ADDRESS*/
     
     .single_address {
