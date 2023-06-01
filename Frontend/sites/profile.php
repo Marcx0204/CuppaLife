@@ -1,8 +1,18 @@
+<?php
+
+// Überprüfen, ob der Benutzer eingeloggt ist, sonst zur Login-Seite weiterleiten
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <?php include 'head.php'; ?>
+    <?php include 'head.php';
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+        exit;
+    } ?>
 </head>
 
 <body>
@@ -98,14 +108,15 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <footer>
+        <?php include 'footer.php'; ?>
+    </footer>
 
-        <footer>
-            <?php include 'footer.php'; ?>
-        </footer>
-
-        <script>
+    <script>
         $(document).ready(function() {
+            // AJAX-Anfrage, um Benutzerdaten abzurufen
             $.ajax({
                 type: 'GET',
                 url: '../../Backend/logic/get-user-data.php',
@@ -187,7 +198,7 @@
                 });
             });
         });
-        </script>
+    </script>
 </body>
 
 </html>

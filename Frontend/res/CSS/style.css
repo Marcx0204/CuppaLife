@@ -101,7 +101,6 @@ body{
         color: #fff;
         outline: medium none !important;
         padding: 15px 27px;
-        text-transform: capitalize;
         -webkit-transition: all 0.3s ease 0s;
         -o-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
@@ -125,7 +124,6 @@ body{
         color: #fff;
         outline: medium none !important;
         padding: 3px 15px;
-        text-transform: capitalize;
         -webkit-transition: all 0.3s ease 0s;
         -o-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
