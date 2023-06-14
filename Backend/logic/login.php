@@ -21,6 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Passwort stimmt überein, Benutzer einloggen
             $_SESSION['username'] = $user['username'];
             $_SESSION['loggedin'] = true;
+            
+            // Setze den Login-Cookie, wenn "Login merken" ausgewählt wurde
+if (isset($_POST['remember_me']) && $_POST['remember_me'] === 'true') {
+    $cookie_name = 'remember_me';
+    $cookie_value = $user['username']; // Hier kannst du den entsprechenden Wert für den Cookie setzen
+    $cookie_expiry = time() + (86400 * 30); // Cookie bleibt für 30 Tage gültig
+
+    setcookie($cookie_name, $cookie_value, $cookie_expiry, '/');
+}
+
+
         
             $response = array('status' => 'OK', 'message' => 'Login erfolgreich');
             echo json_encode($response);
@@ -35,4 +46,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verbindung schließen
     mysqli_close($conn);
 }
-?>

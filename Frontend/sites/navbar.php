@@ -43,6 +43,8 @@
             echo '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">';
             echo '<li><a class="dropdown-item" href="profile.php">Mein Konto</a></li>';
             echo '<li><hr class="dropdown-divider"></li>';
+            echo '<li><a class="dropdown-item" href="payment.php">Zahlungsmethode</a></li>';
+            echo '<li><hr class="dropdown-divider"></li>';
             echo '<li><a class="dropdown-item" href="../../Backend/logic/logout.php">Abmelden</a></li>';
             echo '</ul>';
             echo '</li>';

@@ -94,6 +94,7 @@
     function login() {
         var username = $('#username').val(); // Hier wird der Wert des Benutzernamens aus dem E-Mail-Eingabefeld gelesen
         var password = $('#password').val();
+        var rememberMe = $('#remember_me').is(':checked'); // Wert des Remember Me-Checkbox-Feldes abrufen
 
         $.ajax({
             type: 'POST',
@@ -101,6 +102,7 @@
             data: {
                 username: username, // Hier wird der Benutzername als "username" gesendet
                 password: password,
+                remember_me: rememberMe // Remember Me-Wert an das Backend senden
             },
             success: function(response) {
                 var responseObj = JSON.parse(response);
