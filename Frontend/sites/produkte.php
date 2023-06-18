@@ -16,6 +16,7 @@
         <div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
+            <input type="text" id="product-search" placeholder="Search products...">
             <a href="#" class="category-link" data-category="Indischer Tee">Indischer Tee</a> |
             <a href="#" class="category-link" data-category="Japanischer Tee">Japanischer Tee</a> |
             <a href="#" class="category-link" data-category="Chinesischer Tee">Chinesischer Tee</a>
@@ -27,15 +28,26 @@
 
         <script>
             
-        function loadProducts(selectedCategory) {
+        function loadProducts(selectedCategory, query) {
+            var requestData = {};
+
+            if (selectedCategory) {
+                requestData.category = selectedCategory;
+            }
+
+            if (query) {
+                requestData.query = query;
+            }
             $.ajax({
                 url: '../../Backend/logic/produkte.php',
                 type: 'GET',
-                data: { category: selectedCategory },
+                data: requestData,
                 dataType: 'json',
                 success: function(data) {
                     var dataList = $("#data-list");
                     dataList.empty();
+
+
 
                     // Fetch current cart items
                     $.ajax({
@@ -100,6 +112,12 @@
         var category = $(this).data('category');
         loadProducts(category);
     });
+
+    $('#product-search').on('input', function() {
+    var query = $(this).val();
+    loadProducts(null, query);
+    });
+
 
     function addToCart(event) {
         event.preventDefault();
