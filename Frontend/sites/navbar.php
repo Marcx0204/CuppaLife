@@ -1,3 +1,11 @@
+<?php
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+   include_once '../../Backend/logic/login-user.php';
+}
+//Überprüfen, ob der Benutzer bereits eingeloggt ist
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -13,15 +21,16 @@
                     <a class="nav-link active" aria-current="page" href="produkte.php">Produkte</a>
                 </li>
                  <?php
-      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && strtolower($_SESSION['username']) == 'admin') {
-        echo '<li class="nav-item">';
-        echo '<a class="nav-link" href="produkte_bearbeiten.php">Produkte bearbeiten</a>';
-        echo '</li>';
-        echo '<li class="nav-item">';
-        echo '<a class="nav-link" href="kunden_bearbeiten.php">Kunden bearbeiten</a>';
-        echo '</li>';
-        echo '<li class="nav-item">';
-        echo '<a class="nav-link" href="gutscheine_verwalten.php">Gutscheine verwalten</a>';
+     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && strtolower($_SESSION['username']) == 'admin') {
+        echo '<li class="nav-item dropdown">';
+        echo '<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">';
+        echo 'Admin Einstellungen';
+        echo '</a>';
+        echo '<ul class="dropdown-menu" aria-labelledby="adminDropdown">';
+        echo '<li><a class="dropdown-item" href="produkte_bearbeiten.php">Produkte bearbeiten</a></li>';
+        echo '<li><a class="dropdown-item" href="kunden_bearbeiten.php">Kunden bearbeiten</a></li>';
+        echo '<li><a class="dropdown-item" href="gutscheine_verwalten.php">Gutscheine verwalten</a></li>';
+        echo '</ul>';
         echo '</li>';
     }
         ?>
@@ -41,6 +50,8 @@
             echo '</a>';
             echo '<ul class="dropdown-menu" aria-labelledby="navbarDropdown">';
             echo '<li><a class="dropdown-item" href="profile.php">Mein Konto</a></li>';
+            echo '<li><hr class="dropdown-divider"></li>';
+            echo '<li><a class="dropdown-item" href="payment.php">Zahlungsmethode</a></li>';
             echo '<li><hr class="dropdown-divider"></li>';
             echo '<li><a class="dropdown-item" href="../../Backend/logic/logout.php">Abmelden</a></li>';
             echo '</ul>';

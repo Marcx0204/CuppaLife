@@ -11,7 +11,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $username = mysqli_real_escape_string($conn, $_SESSION['username']);
+    $currentPassword = mysqli_real_escape_string($conn, $_POST['currentPassword']);
     $fields_to_update = array();
+
+    // Überprüfen des aktuellen Passworts
+    $sql = "SELECT password FROM user WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $hashedPassword = $row['password'];
+
+        // Überprüfen des eingegebenen Passworts
+        if (!password_verify($currentPassword, $hashedPassword)) {
+            $response = array('status' => 'error', 'message' => 'Das eingegebene Passwort ist falsch');
+            echo json_encode($response);
+            mysqli_close($conn);
+            exit;
+        }
+    }
 
     $expected_fields = array('f_name', 'l_name', 'address', 'zip_code', 'town', 'email');
     foreach ($expected_fields as $field) {

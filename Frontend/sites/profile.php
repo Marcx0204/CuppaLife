@@ -1,8 +1,18 @@
+<?php
+
+// Überprüfen, ob der Benutzer eingeloggt ist, sonst zur Login-Seite weiterleiten
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <?php include 'head.php'; ?>
+    <?php include 'head.php';
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+        exit;
+    } ?>
 </head>
 
 <body>
@@ -59,8 +69,14 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="town">Stadt</label>
                                     <input class="form-control" id="town" type="text">
-                                </div>
+                                
                             </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="currentPassword">Passwort</label>
+                                <input class="form-control" id="currentPassword" type="password"
+                                    placeholder="Gebe dein Passwort ein um Daten zu ändern">
+                            </div>
+                        </div>
                             <!-- Save changes button-->
                             <button class="btn btn-primary" type="submit">Änderungen speichern</button>
                         </form>
@@ -76,8 +92,8 @@
                         <form id="change-password-form">
                             <!-- Form Group (current password)-->
                             <div class="mb-3">
-                                <label class="small mb-1" for="currentPassword">altes Passwort</label>
-                                <input class="form-control" id="currentPassword" type="password"
+                                <label class="small mb-1" for="currentPassword1">altes Passwort</label>
+                                <input class="form-control" id="currentPassword1" type="password"
                                     placeholder="Gebe dein altes Passwort ein">
                             </div>
                             <!-- Form Group (new password)-->
@@ -98,14 +114,15 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <footer>
+        <?php include 'footer.php'; ?>
+    </footer>
 
-        <footer>
-            <?php include 'footer.php'; ?>
-        </footer>
-
-        <script>
+    <script>
         $(document).ready(function() {
+            // AJAX-Anfrage, um Benutzerdaten abzurufen
             $.ajax({
                 type: 'GET',
                 url: '../../Backend/logic/get-user-data.php',
@@ -120,6 +137,12 @@
                     $('#address').val(user.address);
                     $('#zip_code').val(user.zip_code);
                     $('#town').val(user.town);
+
+                // Überprüfen des Passworts
+                if (currentPassword === "") {
+                    alert("Bitte gebe dein aktuelles Passwort ein.");
+                    return;
+                }
                 },
                 error: function(xhr, status, error) {
                     alert('Ein Fehler ist aufgetreten: ' + error);
@@ -135,7 +158,15 @@
                 var street = $('#address').val();
                 var zipCode = $('#zip_code').val();
                 var city = $('#town').val();
+                var currentPassword = $('#currentPassword').val();
 
+                // Überprüfen des Passworts
+                if (currentPassword === "") {
+                    alert("Bitte gebe dein aktuelles Passwort ein.");
+                    return;
+                }
+
+                // AJAX-Anfrage, um Benutzerdaten zu aktualisieren
                 $.ajax({
                     type: 'POST',
                     url: '../../Backend/logic/update-profile.php',
@@ -145,7 +176,8 @@
                         l_name: lastName,
                         address: street,
                         zip_code: zipCode,
-                        town: city
+                        town: city,
+                        currentPassword: currentPassword
                     },
                     success: function(response) {
                         var result = JSON.parse(response);
@@ -156,38 +188,46 @@
                     }
                 });
             });
+            
+        $('#change-password-form').submit(function(e) {
+        e.preventDefault();
 
-            $('#change-password-form').submit(function(e) {
-                e.preventDefault();
+        var username = $('#inputUsername').val();
+        var currentPassword1 = $('#currentPassword1').val();
+        var newPassword = $('#newPassword').val();
+        var confirmPassword = $('#confirmPassword').val();
 
-                var username = $('#inputUsername').val();
-                var currentPassword = $('#currentPassword').val();
-                var newPassword = $('#newPassword').val();
-                var confirmPassword = $('#confirmPassword').val();
+        if (newPassword !== confirmPassword) {
+        alert('Die Passwörter stimmen nicht überein.');
+        return;
+    }
 
-                if (newPassword !== confirmPassword) {
-                    alert('Die Passwörter stimmen nicht überein.');
-                    return;
-                }
+    // Überprüfen des Passworts
+    if (currentPassword1 === "") {
+        alert("Bitte gebe dein altes Passwort ein.");
+        return;
+    }
 
-                $.ajax({
-                    type: 'POST',
-                    url: '../../Backend/logic/update-password.php',
-                    data: {
-                        username: username,
-                        currentPassword: currentPassword,
-                        newPassword: newPassword
-                    },
-                    success: function(response) {
-                        alert('Passwort erfolgreich geändert.');
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Ein Fehler ist aufgetreten: ' + error);
-                    }
-                });
-            });
+
+        $.ajax({
+            type: 'POST',
+            url: '../../Backend/logic/update-password.php',
+            data: {
+                username: username,
+                currentPassword: currentPassword1,
+                newPassword: newPassword
+            },
+            success: function(response) {
+                var result = JSON.parse(response);
+                alert(result.message);
+            },
+            error: function(xhr, status, error) {
+                alert('Ein Fehler ist aufgetreten: ' + error);
+            }
         });
-        </script>
+    });
+        });
+    </script>
 </body>
 
 </html>
