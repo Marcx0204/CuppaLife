@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-// Überprüfen, ob der Benutzer bereits eingeloggt ist
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    include_once '../../Backend/logic/login-user.php';
-}
+//Überprüfen, ob der Benutzer bereits eingeloggt ist
+
 ?>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -16,6 +14,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <link rel="stylesheet" href="../res/CSS/style.css" type="text/css">
 <script src="https://kit.fontawesome.com/6c2c0b3636.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 
 

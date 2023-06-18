@@ -22,17 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['loggedin'] = true;
             
+            // Verschlüsseln des Benutzernamens
+            $encryption_key = "DeinVerschlüsselungsschlüssel"; // Hier den Verschlüsselungsschlüssel einsetzen
+            $encrypted_username = encryptUsername($user['username'], $encryption_key);
+            
             // Setze den Login-Cookie, wenn "Login merken" ausgewählt wurde
-if (isset($_POST['remember_me']) && $_POST['remember_me'] === 'true') {
-    $cookie_name = 'remember_me';
-    $cookie_value = $user['username']; // Hier kannst du den entsprechenden Wert für den Cookie setzen
-    $cookie_expiry = time() + (86400 * 30); // Cookie bleibt für 30 Tage gültig
+            if (isset($_POST['remember_me']) && $_POST['remember_me'] === 'true') {
+                $cookie_name = 'remember_me';
+                $cookie_value = $encrypted_username;
+                $cookie_expiry = time() + (86400 * 30); // Cookie bleibt für 30 Tage gültig
 
-    setcookie($cookie_name, $cookie_value, $cookie_expiry, '/');
-}
+                setcookie($cookie_name, $cookie_value, $cookie_expiry, '/');
+            }
 
-
-        
             $response = array('status' => 'OK', 'message' => 'Login erfolgreich');
             echo json_encode($response);
             exit; 
@@ -45,4 +47,13 @@ if (isset($_POST['remember_me']) && $_POST['remember_me'] === 'true') {
 
     // Verbindung schließen
     mysqli_close($conn);
+}
+
+// Funktion zum Verschlüsseln des Benutzernamens
+function encryptUsername($username, $key) {
+    $cipher = "AES-256-CBC";
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
+    $encrypted = openssl_encrypt($username, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encrypted_data = base64_encode($iv . $encrypted);
+    return $encrypted_data;
 }

@@ -63,14 +63,15 @@
                                                 <input type="password" class="form-control" id="password"
                                                     name="password" required>
                                             </div>
+                                            <div class="field-group col-md-8 mb-2">
+                                                <label for="remember_me">Login merken</label>
+                                                <input type="checkbox" id="remember_me" name="remember_me">
+                                            </div>
 
                                             <div class="form-group text-center">
                                                 <button type="submit" class="btn btn-block">Anmelden</button>
                                             </div>
-                                            <div class="form-group col-md-11">
-                                                <label for="remember_me">Remember me</label>
-                                                <input type="checkbox" id="remember_me" name="remember_me">
-                                            </div>
+                                            
 
                                         </form>
                                     </div>

@@ -1,3 +1,11 @@
+<?php
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+   include_once '../../Backend/logic/login-user.php';
+}
+//Überprüfen, ob der Benutzer bereits eingeloggt ist
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
