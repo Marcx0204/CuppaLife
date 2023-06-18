@@ -115,6 +115,11 @@
             </div>
         </div>
     </div>
+    <div class="container-xl px-4 mt-4">
+        <h2>Bestellungen</h2>
+        <div id="order-list"></div>
+    </div>
+
 
     <footer>
         <?php include 'footer.php'; ?>
@@ -122,6 +127,62 @@
 
     <script>
         $(document).ready(function() {
+    
+           // AJAX-Anfrage, um die Bestellungen des Benutzers abzurufen
+// AJAX-Anfrage, um die Bestellungen des Benutzers abzurufen
+$.ajax({
+    type: 'GET',
+    url: '../../Backend/logic/view_orders.php',
+    dataType: 'json',
+    success: function(response) {
+        if (response.status === 'OK') {
+            var orders = response.orders;
+
+            if (orders.length > 0) {
+                // Bestellungen anzeigen
+                var orderList = $('#order-list');
+                orderList.empty();
+
+                orders.forEach(function(order) {
+                    var orderCard = $('<div>').addClass('card mb-3');
+                    var orderHeader = $('<div>').addClass('card-header').text('Bestellung: ' + order.order_id);
+                    var orderBody = $('<div>').addClass('card-body');
+
+                    order.products.forEach(function(product, index) {
+                        var productId = $('<p>').text('Produkt ID: ' + product.product_id);
+                        var productName = $('<p>').text('Produktname: ' + product.product_name);
+                        var productPrice = $('<p>').text('Preis: ' + product.product_price);
+                        var quantity = $('<p>').text('Menge: ' + product.quantity);
+
+                        orderBody.append(productId, productName, productPrice, quantity);
+
+                        // Füge eine Trennlinie nach jedem Produkt hinzu, außer dem letzten
+                        if (index < order.products.length - 1) {
+                            orderBody.append($('<hr>'));
+                        }
+                    });
+
+                    orderCard.append(orderHeader, orderBody);
+                    orderList.append(orderCard);
+                });
+            } else {
+                // Keine Bestellungen gefunden
+                $('#order-list').text('Keine Bestellungen gefunden');
+            }
+        } else {
+            // Fehler beim Abrufen der Bestellungen
+            $('#order-list').text('Fehler beim Abrufen der Bestellungen');
+        }
+    },
+    error: function(xhr, status, error) {
+        // Fehler beim AJAX-Aufruf
+        $('#order-list').text('Ein Fehler ist aufgetreten: ' + error);
+    }
+});
+
+
+        });
+            
             // AJAX-Anfrage, um Benutzerdaten abzurufen
             $.ajax({
                 type: 'GET',
@@ -187,7 +248,6 @@
                         alert('Ein Fehler ist aufgetreten: ' + error);
                     }
                 });
-            });
             
         $('#change-password-form').submit(function(e) {
         e.preventDefault();

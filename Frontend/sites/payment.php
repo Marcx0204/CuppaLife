@@ -3,7 +3,11 @@
 
 <head>
     <title>Help</title>
-    <?php include 'head.php'; ?>
+    <?php include 'head.php';
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+        exit;
+    } ?>
 </head>
 
 <body>
