@@ -1,6 +1,6 @@
 <?php
 
-// Überprüfen, ob der Benutzer eingeloggt ist, sonst zur Login-Seite weiterleiten
+
 
 ?>
 
@@ -190,7 +190,7 @@ $.ajax({
                 success: function(response) {
                     var user = JSON.parse(response);
 
-                    // Setzen Sie die Werte der Formularfelder
+                    //Werte der Formularfelder
                     $('#inputUsername').val(user.username);
                     $('#email').val(user.email);
                     $('#inputFirstName').val(user.f_name);

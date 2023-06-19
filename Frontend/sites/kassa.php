@@ -107,41 +107,8 @@
     $("#bestellenButton").click(function() {
     // Ausgewählte Zahlungsmethode abrufen
     var selectedPaymentMethod = $('#payment-method').val();
-    //Leehre das Warenkorb aus
-    $.ajax({
-    url: '../../Backend/logic/warenkorb.php?empty_cart=true',
-    type: 'DELETE',
-    dataType: 'json',
-    success: function(data) {
-        console.log(data);
-        // update cart or do other stuff here
-        $.ajax({
-                url: '../../Backend/logic/warenkorb.php',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    var totalQuantity = 0;
-                    
-                    // Iterate over each item in the cart
-                    for(var i = 0; i < data.length; i++) {
-                        // Sum the quantity of the current item
-                        totalQuantity += data[i].quantity;
-                    }
-
-                    // Set the total quantity as the cart count
-                    $('#cart-count').text(totalQuantity);
-                },
-                error: function(err) {
-                    console.error(err);
-                }
-            });
-    },
-    error: function(err) {
-        console.error(err);
-    }
-});
     
-    // Request the shopping cart data from the server
+    // Request the shopping cart data from the server before clearing the cart
     $.ajax({
         url: '../../Backend/logic/warenkorb.php', // URL of the PHP script that returns the cart data
         method: 'GET',
@@ -154,27 +121,44 @@
             };
 
             $.ajax({
-                url: '../../Backend/logic/kassa.php', // URL of the server-side script that processes the order
+                url: '../../Backend/logic/kassa.php', // 
                 method: 'POST',
                 data: JSON.stringify(orderData),
                 contentType: "application/json",
                 success: function(response) {
-                    // The request was successful. You can notify the user or update the UI here.
+                    // The request was successful
                     console.log(response);
+
+                    // After order is successfully placed, clear the cart
+                    $.ajax({
+                        url: '../../Backend/logic/warenkorb.php?empty_cart=true',
+                        type: 'DELETE',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);
+                            // reset cart count
+                            $('#cart-count').text(0);
+                            window.location.href = "profile.php";
+
+                        },
+                        error: function(err) {
+                            console.error(err);
+                        }
+                    });
                 },
                 error: function(xhr, status, error) {
-                    // The request failed. Handle the error here.
+                    // The request failed. 
                     console.error(error);
                 }
             });
         },
         error: function(xhr, status, error) {
-            // The request for the cart data failed. Handle the error here.
+            // The request for the cart data failed.
             console.error(error);
         }
     });
-    
 });
+
 
     </script>
 

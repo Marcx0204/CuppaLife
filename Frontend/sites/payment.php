@@ -116,7 +116,7 @@
                 // AJAX-Anfrage senden
                 $.ajax({
                     type: 'POST',
-                    url: "../../Backend/logic/add-payment.php", // Passe den Pfad zum Zahlungsverarbeitungsskript an
+                    url: "../../Backend/logic/add-payment.php", // 
                     data: {
                         cardProvider: cardProvider,
                         cardNumber: cardNumber,
@@ -126,17 +126,17 @@
                     },
                     success: function(response) {
                         // Erfolgreiche Antwort verarbeiten
-                        console.log(response); // Hier können Sie die Serverantwort überprüfen
-                        // Fügen Sie hier den Code hinzu, um auf den erfolgreichen Abschluss zu reagieren
+                        console.log(response); 
+                        // erfolgreichen Abschluss
                         $('#add-payment-form')[0].reset(); // Formularfelder zurücksetzen
                         $('#error').hide(); // Fehlermeldung ausblenden
                         $('#success-message').text('Zahlungsmethode hinzugefügt.'); // Erfolgsmeldung anzeigen
                         $('#success-message').show(); // Erfolgsmeldung einblenden
                     },
                     error: function(xhr, status, error) {
-                        // Fehlerhafte Antwort verarbeiten
-                        console.error(error); // Hier können Sie den Fehler überprüfen
-                        // Fügen Sie hier den Code hinzu, um auf den Fehler zu reagieren
+                      
+                        console.error(error); 
+                        
                         $('#success-message').hide(); // Erfolgsmeldung ausblenden
                         $('#error').text('Fehler: ' + error); // Fehlermeldung anzeigen
                         $('#error').show(); // Fehlermeldung einblenden

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-//Überprüfen, ob der Benutzer bereits eingeloggt ist
 
 ?>
 <!-- CSS only -->
