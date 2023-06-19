@@ -14,7 +14,7 @@ $username = $_SESSION['username'];
 
 // SQL-Abfrage, um die gruppierten Bestellungen des eingeloggten Benutzers abzurufen
 $selectQuery = "SELECT order_id, GROUP_CONCAT(product_id) AS product_ids, GROUP_CONCAT(product_name) AS product_names, 
-                GROUP_CONCAT(product_price) AS product_prices, GROUP_CONCAT(quantity) AS quantities
+                GROUP_CONCAT(product_price) AS product_prices, GROUP_CONCAT(quantity) AS quantities, payment_method
                 FROM orders
                 WHERE username = '$username'
                 GROUP BY order_id";
@@ -35,6 +35,7 @@ if (mysqli_num_rows($result) > 0) {
 
         $order = array(
             'order_id' => $row['order_id'],
+            'payment_method' => $row['payment_method'],
             'products' => array()
         );
 

@@ -2,9 +2,13 @@
 session_start();
 include_once '../config/dbaccess.php';
 
-$warenkorb = json_decode(file_get_contents('php://input'), true); // Parse the JSON request body
+$rawData = file_get_contents('php://input');
+$orderData = json_decode($rawData, true);
+
+$warenkorb = $orderData['warenkorb'];
 $username = $_SESSION['username'];
 $order_id = uniqid(); // Generiere eine eindeutige Bestell-ID
+$paymentMethod = $orderData['paymentMethod']; // Holen Sie die Zahlungsmethode aus den Bestelldaten
 
 foreach ($warenkorb as $product) { // Loop through the products
     $product_id = $product['id'];
@@ -13,8 +17,8 @@ foreach ($warenkorb as $product) { // Loop through the products
     $quantity = $product['quantity'];
 
     // Prepare and execute an SQL statement to insert the product into the orders table
-    $insertQuery = "INSERT INTO orders (username, product_id, product_name, product_price, quantity, order_id) 
-                    VALUES ('$username', '$product_id', '$product_name', '$product_price', '$quantity', '$order_id')";
+    $insertQuery = "INSERT INTO orders (username, product_id, product_name, product_price, quantity, order_id, payment_method) 
+                    VALUES ('$username', '$product_id', '$product_name', '$product_price', '$quantity', '$order_id', '$paymentMethod')";
 
     if (mysqli_query($conn, $insertQuery)) {
         // Erfolgreich eingefügt

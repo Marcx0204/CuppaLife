@@ -126,10 +126,8 @@
     </footer>
 
     <script>
-        $(document).ready(function() {
-    
-           // AJAX-Anfrage, um die Bestellungen des Benutzers abzurufen
-// AJAX-Anfrage, um die Bestellungen des Benutzers abzurufen
+    $(document).ready(function() {
+   // AJAX-Anfrage, um die Bestellungen des Benutzers abzurufen
 $.ajax({
     type: 'GET',
     url: '../../Backend/logic/view_orders.php',
@@ -147,6 +145,9 @@ $.ajax({
                     var orderCard = $('<div>').addClass('card mb-3');
                     var orderHeader = $('<div>').addClass('card-header').text('Bestellung: ' + order.order_id);
                     var orderBody = $('<div>').addClass('card-body');
+
+                    var paymentMethod = $('<p>').text('Zahlungsmethode: ' + order.payment_method);
+                    orderBody.append(paymentMethod);
 
                     order.products.forEach(function(product, index) {
                         var productId = $('<p>').text('Produkt ID: ' + product.product_id);
@@ -180,9 +181,8 @@ $.ajax({
     }
 });
 
+});
 
-        });
-            
             // AJAX-Anfrage, um Benutzerdaten abzurufen
             $.ajax({
                 type: 'GET',

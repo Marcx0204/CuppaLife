@@ -20,14 +20,12 @@
             <h4>Gesamtpreis: <span id="total-price"></span></h4>
         </div>
         <div class="mt-4">
-            <h4>Zahlungsmethode auswählen:</h4>
-            <select class="form-control" id="payment-method">
-                <option value="">Bitte wählen...</option>
-                <!-- Hier werden die Zahlungsmethoden des eingeloggten Benutzers dynamisch generiert -->
-                <?php
-                // Füge hier den Code ein, um die Zahlungsmethoden des Benutzers abzurufen und anzuzeigen
-                ?>
-            </select>
+    <h4>Zahlungsmethode auswählen:</h4>
+    <select class="form-control" id="payment-method">
+        <option value="">Bitte wählen...</option>
+    </select>
+</div>
+
         </div>
         <div class="mt-4">
             <button type="button" class="btn btn-primary" id="bestellenButton">Jetzt bezahlen</button>
@@ -35,6 +33,7 @@
     </div>
 
     <script>
+        
         function loadCartItems() {
             $.ajax({
                 url: '../../Backend/logic/warenkorb.php',
@@ -73,11 +72,42 @@
 
         $(document).ready(function() {
             loadCartItems();
+        // AJAX-Anfrage, um Zahlungsmethoden abzurufen
+        $.ajax({
+            type: 'GET',
+            url: '../../Backend/logic/get-payment-methods.php',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'OK') {
+                    var paymentMethods = response.paymentMethods;
 
-            
+                    // Dropdown-Menü mit den Zahlungsmethoden füllen
+                    var dropdown = $('#payment-method');
+                    dropdown.empty();
+
+                    paymentMethods.forEach(function(method) {
+                        var option = $('<option>').attr('value', method).text(method);
+                        dropdown.append(option);
+                    });
+                } else {
+                    // Fehler beim Abrufen der Zahlungsmethoden
+                    alert('Fehler beim Abrufen der Zahlungsmethoden');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Fehler beim AJAX-Aufruf
+                alert('Ein Fehler ist aufgetreten: ' + error);
+            }
         });
+    });
 
-        $("#bestellenButton").click(function() {
+    
+
+    
+    $("#bestellenButton").click(function() {
+    // Ausgewählte Zahlungsmethode abrufen
+    var selectedPaymentMethod = $('#payment-method').val();
+    
     // Request the shopping cart data from the server
     $.ajax({
         url: '../../Backend/logic/warenkorb.php', // URL of the PHP script that returns the cart data
@@ -85,10 +115,15 @@
         dataType: 'json',
         success: function(warenkorb) {
             // Once the cart data has been received, send it to the order processing script
+            var orderData = {
+                warenkorb: warenkorb,
+                paymentMethod: selectedPaymentMethod // Hinzufügen der ausgewählten Zahlungsmethode zur Bestelldaten
+            };
+
             $.ajax({
                 url: '../../Backend/logic/kassa.php', // URL of the server-side script that processes the order
                 method: 'POST',
-                data: JSON.stringify(warenkorb),
+                data: JSON.stringify(orderData),
                 contentType: "application/json",
                 success: function(response) {
                     // The request was successful. You can notify the user or update the UI here.
@@ -105,8 +140,8 @@
             console.error(error);
         }
     });
-});
     
+});
 
     </script>
 
