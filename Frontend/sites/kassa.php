@@ -125,6 +125,7 @@
                 method: 'POST',
                 data: JSON.stringify(orderData),
                 contentType: "application/json",
+                cache: false,
                 success: function(response) {
                     // The request was successful
                     console.log(response);
