@@ -107,6 +107,39 @@
     $("#bestellenButton").click(function() {
     // Ausgewählte Zahlungsmethode abrufen
     var selectedPaymentMethod = $('#payment-method').val();
+    //Leehre das Warenkorb aus
+    $.ajax({
+    url: '../../Backend/logic/warenkorb.php?empty_cart=true',
+    type: 'DELETE',
+    dataType: 'json',
+    success: function(data) {
+        console.log(data);
+        // update cart or do other stuff here
+        $.ajax({
+                url: '../../Backend/logic/warenkorb.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var totalQuantity = 0;
+                    
+                    // Iterate over each item in the cart
+                    for(var i = 0; i < data.length; i++) {
+                        // Sum the quantity of the current item
+                        totalQuantity += data[i].quantity;
+                    }
+
+                    // Set the total quantity as the cart count
+                    $('#cart-count').text(totalQuantity);
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            });
+    },
+    error: function(err) {
+        console.error(err);
+    }
+});
     
     // Request the shopping cart data from the server
     $.ajax({
