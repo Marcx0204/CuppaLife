@@ -33,21 +33,28 @@
 
     } elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : null;
+        $empty_cart = isset($_GET['empty_cart']) ? $_GET['empty_cart'] : null;
     
-        if ($product_id !== null && isset($_SESSION['warenkorb'][$product_id])) {
+        // Check if the empty_cart parameter is set and is true
+        if ($empty_cart === 'true') {
+            // Empty the cart
+            $_SESSION['warenkorb'] = [];
+            
+            http_response_code(200);
+            echo json_encode(['status' => 'success', 'message' => 'Warenkorb geleert']);
+        }
+        // Continue with your previous delete logic
+        elseif ($product_id !== null && isset($_SESSION['warenkorb'][$product_id])) {
             unset($_SESSION['warenkorb'][$product_id]);
-    
+            
             http_response_code(200);
             echo json_encode(['status' => 'success', 'message' => 'Produkt entfernt']);
         } else {
             http_response_code(400);
             echo json_encode(['status' => 'error', 'message' => 'Produkt ID fehlt oder Produkt nicht gefunden']);
         }
-    
-    
-
-
-    } elseif ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
+    }   
+        elseif ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
         $data = json_decode(file_get_contents("php://input"), true);
         $product_id = isset($data['product_id']) ? $data['product_id'] : null;
         $quantity_change = isset($data['quantity_change']) ? $data['quantity_change'] : null;

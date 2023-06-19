@@ -103,6 +103,26 @@ $('#total-price').text(total);
                 dataType: 'json',
                 success: function(data) {
                     loadCartItems();
+                    $.ajax({
+                url: '../../Backend/logic/warenkorb.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var totalQuantity = 0;
+                    
+                    // Iterate over each item in the cart
+                    for(var i = 0; i < data.length; i++) {
+                        // Sum the quantity of the current item
+                        totalQuantity += data[i].quantity;
+                    }
+
+                    // Set the total quantity as the cart count
+                    $('#cart-count').text(totalQuantity);
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            });
                 },
                 error: function(err) {
                     console.error(err);
@@ -111,20 +131,45 @@ $('#total-price').text(total);
         }
 
         function changeQuantity(item, change) {
+    $.ajax({
+        url: '../../Backend/logic/warenkorb.php',
+        type: 'PATCH',
+        dataType: 'json',
+        data: JSON.stringify({ product_id: item.id, quantity_change: change }),
+        contentType: 'application/json',  // This line is important
+        success: function(data) {
+            loadCartItems();
+
+            // Start of the GET request
             $.ajax({
                 url: '../../Backend/logic/warenkorb.php',
-                type: 'PATCH',
+                type: 'GET',
                 dataType: 'json',
-                data: JSON.stringify({ product_id: item.id, quantity_change: change }),
-                contentType: 'application/json',  // This line is important
                 success: function(data) {
-                    loadCartItems();
+                    var totalQuantity = 0;
+                    
+                    // Iterate over each item in the cart
+                    for(var i = 0; i < data.length; i++) {
+                        // Sum the quantity of the current item
+                        totalQuantity += data[i].quantity;
+                    }
+
+                    // Set the total quantity as the cart count
+                    $('#cart-count').text(totalQuantity);
                 },
                 error: function(err) {
                     console.error(err);
                 }
             });
+            // End of the GET request
+        },
+        error: function(err) {
+            console.error(err);
         }
+    });
+}
+
+
 
         $(document).ready(function() {
             loadCartItems();

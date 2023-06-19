@@ -142,8 +142,8 @@
         },
         success: function(response) {
           // Erfolgreiche Antwort verarbeiten
-          console.log(response); // Hier können Sie die Serverantwort überprüfen
-          // Fügen Sie hier den Code hinzu, um auf den erfolgreichen Abschluss zu reagieren
+          console.log(response); 
+          
           $('#registration-form')[0].reset(); // Formularfelder zurücksetzen
           $('#error').hide(); // Fehlermeldung ausblenden
           $('#success-message').text('Registrierung erfolgreich.'); // Erfolgsmeldung anzeigen
@@ -151,9 +151,7 @@
           window.location.href = 'index.php';
         },
         error: function(xhr, status, error) {
-          // Fehlerhafte Antwort verarbeiten
-          console.error(error); // Hier können Sie den Fehler überprüfen
-          // Fügen Sie hier den Code hinzu, um auf den Fehler zu reagieren
+          console.error(error); 
           $('#success-message').hide(); // Erfolgsmeldung ausblenden
           $('#error').text('Fehler: ' + error); // Fehlermeldung anzeigen
           $('#error').show(); // Fehlermeldung einblenden
